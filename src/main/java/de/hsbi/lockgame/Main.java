@@ -13,7 +13,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.*;
 
 public class Main {
-  public static void main() {
+  public static void main(String[] args) {
     SwingUtilities.invokeLater(
         () -> {
           try {
@@ -38,9 +38,7 @@ public class Main {
             frame.setVisible(true);
 
             // Game loop: Timer -> Engine: GameEngine.tick()
-            new Timer(
-                    GameConstants.TICK_MS,
-                    e -> {
+            new Timer(200,e -> {
                       engine.tick();
                       handleGameEnd(e, engine.state(), frame);
                     })

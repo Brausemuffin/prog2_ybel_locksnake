@@ -44,4 +44,15 @@ public final class Level {
   public Position snakeStart() {
     return snakeStart;
   }
+    public boolean inBounds(Position p) {
+
+        return p.x() >= 0
+            && p.y() >= 0
+            && p.x() < width
+            && p.y() < height;
+    }
+    public boolean isWall(Position p) {
+
+        return cellAt(p) == CellType.WALL;
+    }
 }

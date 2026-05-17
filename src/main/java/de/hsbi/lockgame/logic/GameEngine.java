@@ -19,33 +19,36 @@ import de.hsbi.lockgame.ui.GamePanel;
 // TODO: Die GameEngine ist ein Observer für Direction: GameEngine.update(Direction)
 // TODO: Die GameEngine ist ein Observable für GameState: GamePanel.update(GameState)
 public final class GameEngine {
+    private final GameState state;
+    private GamePanel panel;
 
-  public GameEngine(Level level) {
-    // TODO: lege eine neue GameEngine mit den übergebenen Informationen an
-    throw new UnsupportedOperationException("method not implemented yet");
+    public GameEngine(Level level) {
+        this.state = new GameState(level);
+    }
+
+    public GameState state() {
+        return state;
+    }
+
+    public void setGamePanel(GamePanel panel) {
+        this.panel = panel;
   }
 
-  public GameState state() {
-    // TODO: gebe den aktuellen Spielzustand zurück
-    throw new UnsupportedOperationException("method not implemented yet");
-  }
+    public void update(Direction d) {
 
-  public void setGamePanel(GamePanel panel) {
-    // TODO: Setter
-    throw new UnsupportedOperationException("method not implemented yet");
-  }
+        state.setPendingDirection(d);
 
-  public void update(Direction d) {
-    // TODO: aktualisiere den Blickwinkel der Schlange (GameState)
-    // TODO: benachrichtige alle Observer und gibt den neuen Spielzustand mit (Neuzeichnen der
-    // Spielfläche)
-    throw new UnsupportedOperationException("method not implemented yet");
-  }
+        if (panel != null) {
+            panel.update(state);
+        }
+    }
 
-  public void tick() {
-    // TODO: lass das Spiel (den GameState) einen Schritt ("tick") machen
-    // TODO: benachrichtige alle Observer und gibt den neuen Spielzustand mit (Neuzeichnen der
-    // Spielfläche)
-    throw new UnsupportedOperationException("method not implemented yet");
-  }
+    public void tick() {
+
+        state.tick();
+
+        if (panel != null) {
+            panel.update(state);
+        }
+    }
 }

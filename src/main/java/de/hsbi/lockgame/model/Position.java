@@ -1,19 +1,27 @@
 package de.hsbi.lockgame.model;
 
-public final class Position {
-  private final int x;
-  private final int y;
+import java.util.Objects;
 
-  public Position(int x, int y) {
-    this.x = x;
-    this.y = y;
-  }
+public record Position(int x, int y) {
 
-  public int x() {
-    return x;
-  }
+    @Override
+    public boolean equals(Object obj) {
 
-  public int y() {
-    return y;
-  }
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Position other = (Position) obj;
+
+        return x == other.x && y == other.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
 }
